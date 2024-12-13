@@ -1,5 +1,4 @@
 from sqlalchemy.orm import DeclarativeBase
-# from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import mapped_column
 from sqlalchemy.orm import relationship
 from typing import Optional,List
@@ -47,8 +46,6 @@ class Order(Base):
     creation = mapped_column(DateTime,default=datetime.datetime.now)
     product_id = mapped_column(ForeignKey("product.id"))
     qty = mapped_column(Integer)
-    # delivery_time = mapped_column(DateTime)
-
     product = relationship("Product", back_populates="order")
 
 

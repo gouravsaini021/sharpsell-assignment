@@ -5,15 +5,10 @@ from sqlalchemy import select
 from typing import AsyncGenerator
 from .model import ProductModel
 
-# from sqlalchemy import 
-
-
 @asynccontextmanager
 async def lifespan(app: FastAPI) -> AsyncGenerator:
     # Connect to the database
     async with engine.begin() as conn:
-        # Create all tables
-        # print("session started")
         await conn.run_sync(Base.metadata.create_all)
     yield
     # Close the database connection
@@ -29,7 +24,7 @@ async def post_product(product_model:ProductModel):
     async with SessionLocal() as session:
             async with session.begin():
                 session.add(product)
-                p_id = await session.commit()
+                await session.commit()
                 return product.id
 
     
@@ -49,7 +44,6 @@ async def get_products(category: str | None = None):
     async with SessionLocal() as session:
         async with session.begin():
             stmt = select(*Product.__table__.columns)
-            print(stmt)
             result = await session.execute(stmt)
 
             record = result.all()
