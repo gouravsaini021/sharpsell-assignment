@@ -1,0 +1,6 @@
+sqlalchemy
+fastapi
+aiomysql
+uvicorn
+python-dotenv
+cryptography
